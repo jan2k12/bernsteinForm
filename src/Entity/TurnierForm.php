@@ -16,6 +16,20 @@ class TurnierForm
      */
     private $id;
 
+	/**
+	 * @return mixed
+	 */
+	public function getId() {
+		return $this->id;
+	}
+
+	/**
+	 * @param mixed $id
+	 */
+	public function setId( $id ): void {
+		$this->id = $id;
+	}
+
 
 	/**
 	 * @ORM\Column(type="string", length=100)
@@ -37,21 +51,43 @@ class TurnierForm
 
 	/**
 	 * @ORM\Column(type="integer")
-	 * @var \DateTime
+	 * @var integer
 	 */
 	private $freePlaces;
 
 	/**
-	 * @return \DateTime
+	 * @ORM\OneToMany(targetEntity="App\Entity\Teilnehmer",mappedBy="turnier")
+	 * @ORM\JoinColumn(nullable=false)
+	 * @var Teilnehmer[]
 	 */
-	public function getFreePlaces(): \DateTime {
+	private $teilnehmer;
+
+	/**
+	 * @return Teilnehmer[]
+	 */
+	public function getTeilnehmer(): array {
+		return $this->teilnehmer;
+	}
+
+	/**
+	 * @param Teilnehmer[] $teilnehmer
+	 */
+	public function setTeilnehmer( array $teilnehmer ): void {
+		$this->teilnehmer = $teilnehmer;
+	}
+
+
+	/**
+	 * @return \integer
+	 */
+	public function getFreePlaces(): int {
 		return $this->freePlaces;
 	}
 
 	/**
 	 * @param \DateTime $freePlaces
 	 */
-	public function setFreePlaces( \DateTime $freePlaces ): void {
+	public function setFreePlaces( int $freePlaces ): void {
 		$this->freePlaces = $freePlaces;
 	}
 
@@ -59,28 +95,28 @@ class TurnierForm
 	 * @return \DateTime
 	 */
 	public function getEndDate(): \DateTime {
-		return $this->endDate;
+		return $this->end_date;
 	}
 
 	/**
 	 * @param \DateTime $endDate
 	 */
 	public function setEndDate( \DateTime $endDate ): void {
-		$this->endDate = $endDate;
+		$this->end_date = $endDate;
 	}
 
 	/**
 	 * @return \DateTime
 	 */
 	public function getStartDate(): \DateTime {
-		return $this->startDate;
+		return $this->start_date;
 	}
 
 	/**
 	 * @param \DateTime $startDate
 	 */
 	public function setStartDate( \DateTime $startDate ): void {
-		$this->startDate = $startDate;
+		$this->start_date = $startDate;
 	}
 
 	/**

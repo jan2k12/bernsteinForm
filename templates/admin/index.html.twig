@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% block javascripts %}
+    <script type="application/javascript" src="{{ asset('build/js/app.js') }}" ></script>
+{% endblock %}
+{% block body %}
+    <div>
+        <table border="2">
+            <tr>
+                <th>{% trans from 'admin' %}name{% endtrans %}</th>
+                <th>{% trans from 'admin' %}startDate{% endtrans %}</th>
+                <th>{% trans from 'admin' %}endDate{% endtrans %}</th>
+                <th>{% trans from 'admin' %}freePlaces{% endtrans %}</th>
+                <th>{% trans from 'admin' %}countParticipens{% endtrans %}</th>
+                <th>{% trans from 'admin' %}available{% endtrans %}</th>
+                <th>{% trans from 'admin' %}Actions{% endtrans %}</th>
+            </tr>
+            {% for turnier in turniere %}
+                <tr>
+                    <td>{{ turnier.name }}</td>
+                    <td>{{ turnier.startDate.format('d-m-Y') }}</td>
+                    <td>{{ turnier.endDate.format('d-m-Y') }}</td>
+                    <td>{{ turnier.freePlaces }}</td>
+                    <td>{{ participiens[turnier.id] }}</td>
+                    <td>{{ free_places[turnier.id] }}</td>
+                    <td>
+                        <button id="make_inactive" data-path={{ path('deactivate_turnier') }} value={{ turnier.id }}>deaktivieren</button>
+                        <br/>
+                        <button id="open_turnier" data-path="{{ path('admin_show_turnier',{'turnierId':turnier.id}) }}" value={{ turnier.id }}>Turnier öffnen</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

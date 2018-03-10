@@ -28,7 +28,7 @@ class FormularService {
 	/**
 	 * @param \DateTime $dateTime
 	 *
-	 * @return mixed
+	 * @return TurnierForm[]
 	 */
 	public function getFormsForDateRange(\DateTime $dateTime) {
 		/** @var TurnierFormRepository $turnierRepo */

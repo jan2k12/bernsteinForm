@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>{% trans from 'admin'%}prename{% endtrans %}</th>
+            <th>{% trans from 'admin'%}name{% endtrans %}</th>
+            <th>{% trans from 'admin'%}street{% endtrans %}</th>
+            <th>{% trans from 'admin'%}plz{% endtrans %}</th>
+            <th>{% trans from 'admin'%}city{% endtrans %}</th>
+            <th>{% trans from 'admin'%}country{% endtrans %}</th>
+            <th>{% trans from 'admin'%}email{% endtrans %}</th>
+            <th>{% trans from 'admin'%}society{% endtrans %}</th>
+            <th>{% trans from 'admin'%}hasPaid{% endtrans %}</th>
+            <th>{% trans from 'admin'%}ageGroup{% endtrans %}</th>
+            <th>{% trans from 'admin'%}bowClass{% endtrans %}</th>
+            <th>{% trans from 'admin'%}actions{% endtrans %}</th>
+        </tr>
+        {% for teilnehmer in teilnehmers %}
+        <tr>
+            <td>{{ teilnehmer.prename }}</td>
+            <td>{{ teilnehmer.name }}</td>
+            <td>{{ teilnehmer.street }}</td>
+            <td>{{ teilnehmer.plz }}</td>
+            <td>{{ teilnehmer.city }}</td>
+            <td>{{ teilnehmer.country }}</td>
+            <td>{{ teilnehmer.email }}</td>
+            <td>{{ teilnehmer.society }}</td>
+            <td>{{ teilnehmer.hasPaid ? "ja" : "nein" }}</td>
+            <td>{{ teilnehmer.Agegroupe.name }}</td>
+            <td>{{ teilnehmer.Bowclass.name }}</td>
+            <td>
+                <button class="pathButtonAndRefresh" data-path="{{ path('setPaid',{'teilnehmerId': teilnehmer.id}) }}">{% trans from 'admin' %}hasPaid{% endtrans %}</button></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <button class="pathButton" data-path="{{ path('getTotalList',{'turnierId': id}) }}">{% trans from 'admin' %} Download Totallist{% endtrans %}</button><br/>
+    <button class="pathButton" data-path="{{ path('getPaidlist',{'turnierId': id}) }}">{% trans from 'admin' %} Download Paidlist{% endtrans %}</button><br/>
+    <button class="pathButton" data-path="{{ path('getPaidArtemisFile',{'turnierId': id}) }}">{% trans from 'admin' %} Download Artemisfile (paid only){% endtrans %}</button>
+
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="application/javascript" src="{{ asset('build/js/app.js') }}" ></script>
+{% endblock %}
+

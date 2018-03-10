@@ -1,7 +1,15 @@
 {% extends "base.html.twig" %}
-
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('build/css/form.css') }}" rel="stylesheet"/>
+{% endblock %}
 {% block body %}
-{{ form_start(form) }}
-{{ form_widget(form) }}
-{{ form_end(form) }}
-{% endblock  %}
+    <div class="teilnehmer_form">
+        <div>
+            {% trans %}counter {% endtrans %} <strong>{{ counter }}</strong>
+        </div>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

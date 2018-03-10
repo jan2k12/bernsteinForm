@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TeilnehmerRepository")
@@ -37,6 +38,7 @@ class Teilnehmer
 
 	/**
 	 * @ORM\Column(type="string",length=5)
+	 * @Assert\Length(min=5,max=5,minMessage="Plz. muss fünfstellig sein",minMessage="Plz. muss fünfstellig sein",exactMessage="mustBe5")
 	 * @var string
 	 */
     private $plz;
@@ -84,6 +86,59 @@ class Teilnehmer
 	 * @var TurnierForm
 	 */
     private $turnier;
+
+	/**
+	 * @ORM\Column(type="boolean" )
+	 * @var boolean
+	 */
+    private $hasPaid=0;
+
+
+	/**
+	 * @ORM\Column(type="datetime" )
+	 * @var \DateTime
+	 */
+    private $created_at;
+
+	/**
+	 * @return \DateTime
+	 */
+	public function getCreatedAt(): \DateTime {
+		return $this->created_at;
+	}
+
+	/**
+	 * @param \DateTime $created_at
+	 */
+	public function setCreatedAt( \DateTime $created_at ): void {
+		$this->created_at = $created_at;
+	}
+
+	/**
+	 * Teilnehmer constructor.
+	 *
+	 * @param \DateTime $created_at
+	 */
+	public function __construct( ) {
+		$this->created_at = new \DateTime('now');
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getId(): int {
+		return $this->id;
+	}
+
+	/**
+	 * @param int $id
+	 */
+	public function setId( int $id ): void {
+		$this->id = $id;
+	}
+
+
 
 	/**
 	 * @return string
@@ -239,7 +294,19 @@ class Teilnehmer
 		$this->turnier = $turnier;
 	}
 
+	/**
+	 * @return bool
+	 */
+	public function isHasPaid(): bool {
+		return $this->hasPaid;
+	}
 
+	/**
+	 * @param bool $hasPaid
+	 */
+	public function setHasPaid( bool $hasPaid ): void {
+		$this->hasPaid = $hasPaid;
+	}
 
 
 }
