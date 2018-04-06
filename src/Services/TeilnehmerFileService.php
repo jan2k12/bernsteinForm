@@ -28,12 +28,10 @@ class TeilnehmerFileService {
 		$teilnehmer = $this->em->getRepository( Teilnehmer::class )->findByTurnierId( $turnierId );
 
 		$headers = [
+			'teilnehmerkennung',
+			'geschlecht',
 			'name',
 			'vorname',
-			'straße',
-			'plz',
-			'city',
-			'land',
 			'email',
 			'verein',
 			'altersgruppe',
@@ -45,14 +43,12 @@ class TeilnehmerFileService {
 		foreach ( $teilnehmer as $user ) {
 			/** @var Teilnehmer $user */
 			$contentHash = [
-				$user->getName(),
-				$user->getPrename(),
-				$user->getStreet(),
-				$user->getPlz(),
-				$user->getCity(),
-				$user->getCountry(),
-				$user->getEmail(),
-				$user->getSociety(),
+				$this->convertToMs('T-'.str_pad($user->getId(),4,0,STR_PAD_LEFT)),
+				$this->convertToMs($user->getGender()??' '),
+				$this->convertToMs($user->getName()),
+				$this->convertToMs($user->getPrename()),
+				$this->convertToMs($user->getEmail()),
+				$this->convertToMs($user->getSociety()),
 				$user->getAgegroupe()->getName(),
 				$user->getBowclass()->getName(),
 				$user->isHasPaid()?'ja':'nein'
@@ -66,12 +62,10 @@ class TeilnehmerFileService {
 		$teilnehmer = $this->em->getRepository( Teilnehmer::class )->findByPaidTurnierId( $turnierId );
 
 		$headers = [
+			'teilnehmerkennung',
+			'geschlecht',
 			'name',
 			'vorname',
-			'straße',
-			'plz',
-			'city',
-			'land',
 			'email',
 			'verein',
 			'altersgruppe',
@@ -83,14 +77,12 @@ class TeilnehmerFileService {
 		foreach ( $teilnehmer as $user ) {
 			/** @var Teilnehmer $user */
 			$contentHash = [
-				$user->getName(),
-				$user->getPrename(),
-				$user->getStreet(),
-				$user->getPlz(),
-				$user->getCity(),
-				$user->getCountry(),
-				$user->getEmail(),
-				$user->getSociety(),
+				$this->convertToMs('T-'.str_pad($user->getId(),4,0,STR_PAD_LEFT)),
+				$this->convertToMs($user->getGender()??' '),
+				$this->convertToMs($user->getName()),
+				$this->convertToMs($user->getPrename()),
+				$this->convertToMs($user->getEmail()),
+				$this->convertToMs($user->getSociety()),
 				$user->getAgegroupe()->getName(),
 				$user->getBowclass()->getName(),
 				$user->isHasPaid()?'ja':'nein'
@@ -115,6 +107,7 @@ class TeilnehmerFileService {
 	private function buildAnmeldungsstring(Teilnehmer $teilnehmer ) {
 
 		$Nachricht = "--- Anmeldung --- --- ---". $teilnehmer->getCreatedAt()->format('d.m.Y H:i:s') ."---\n";
+		$Nachricht.= "Geschlecht:       ".$teilnehmer->getGender()??' '."\n";
 		$Nachricht .= "  Nachname:      ".$teilnehmer->getName()."\n";
 		$Nachricht .= "  Vorname:       ".$teilnehmer->getPrename()."\n";
 		$Nachricht .= "  E-Mail:        ".$teilnehmer->getEmail()."\n";
@@ -122,5 +115,10 @@ class TeilnehmerFileService {
 		$Nachricht .= "  Bogen:         ".$teilnehmer->getBowclass()->getName()."\n";
 		$Nachricht .= "  Altersgruppe   ".$teilnehmer->getAgegroupe()->getName()."\n";
 		return $Nachricht;
+	}
+
+	private function convertToMs( $string ) {
+		$charset=mb_detect_encoding($string,"UTF-8, ISO-8859-1, ISO-8859-15",true);
+		return mb_convert_encoding($string,'Windows-1252',$charset);
 	}
 }

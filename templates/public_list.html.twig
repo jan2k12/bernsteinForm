@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2> {{ turnier.name }}</h2>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>{% trans from 'admin' %}gender{% endtrans %}</th>
+            <th>{% trans from 'admin' %}prename{% endtrans %}</th>
+            <th>{% trans from 'admin' %}name{% endtrans %}</th>
+            <th>{% trans from 'admin' %}hasPaid{% endtrans %}</th>
+        </tr>
+        {% for teilnehmer in teilnehmers %}
+            <tr>
+                <td>{{ teilnehmer.gender }}</td>
+                <td>{{ teilnehmer.prename }}</td>
+                <td>{{ teilnehmer.name }}</td>
+                <td>
+                    {% if teilnehmer.hasPaid==1 %}
+                        <img src="{{ asset('img/icons8-ok-48.png') }}" alt="ok"/>
+
+                    {% else %}
+                        <img src="{{ asset('img/icons8-stornieren-48.png') }}" alt="notOk"/>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+
+
+

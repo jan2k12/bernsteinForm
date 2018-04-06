@@ -93,6 +93,12 @@ class Teilnehmer
 	 */
     private $hasPaid=0;
 
+	/**
+	 * @ORM\Column(type="string" )
+	 * @var string
+	 */
+    private $gender="Herr";
+
 
 	/**
 	 * @ORM\Column(type="datetime" )
@@ -307,6 +313,21 @@ class Teilnehmer
 	public function setHasPaid( bool $hasPaid ): void {
 		$this->hasPaid = $hasPaid;
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getGender(): string {
+		return $this->gender;
+	}
+
+	/**
+	 * @param string $gender
+	 */
+	public function setGender( string $gender ): void {
+		$this->gender = $gender;
+	}
+
 
 
 }

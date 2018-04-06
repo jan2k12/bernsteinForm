@@ -17,6 +17,7 @@ class TeilnehmerRepository extends ServiceEntityRepository {
 					->join('t.turnier','tu')
 					->addSelect('tu')
 		            ->where( 'tu.id = :value' )->setParameter( 'value', $turnierId )
+					->orderBy('t.hasPaid','desc')
 		            ->getQuery()
 		            ->getResult();
 	}

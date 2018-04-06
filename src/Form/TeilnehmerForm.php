@@ -16,6 +16,7 @@ use App\Repository\TurnierFormRepository;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -29,11 +30,19 @@ class TeilnehmerForm extends AbstractType {
 	public function buildForm( FormBuilderInterface $builder, array $options ) {
 		$builder
 			->setCompound(true)
+			->add('gender', ChoiceType::class,[
+				'choices'=>[
+					'Herr'=>'Herr',
+					'Frau'=>'Frau'
+				],
+
+			])
 			->add('name', TextType::class)
 			->add('prename', TextType::class)
 			->add('street', TextType::class)
-			->add('plz', IntegerType::class,[
-				'error_bubbling'=>true
+			->add('plz', TextType::class,[
+				'error_bubbling'=>true,
+
 			])
 			->add('city',TextType::class)
 			->add('country',CountryType::class,[
