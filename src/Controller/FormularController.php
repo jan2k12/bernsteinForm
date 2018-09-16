@@ -55,7 +55,7 @@ class FormularController extends Controller {
 	public function getList(Request $request,$turnierId,TeilnehmerService $teilnehmer_service){
 		$teilnehmer=$this->getDoctrine()->getRepository(Teilnehmer::class)->findByTurnierId($turnierId);
 		$turnier=$this->getDoctrine()->getRepository(TurnierForm::class)->find($turnierId);
-		return $this->render('public_list.html.twig',['teilnehmers'=>$teilnehmer,'turnier'=>$turnier]);
+		return $this->render('public_list.html.twig',['teilnehmers'=>$teilnehmer,'turnier'=>$turnier,'free_places'=>$teilnehmer_service->calcFreePlaces($turnier)]);
 
 	}
 }

@@ -16,6 +16,7 @@ use App\Repository\TurnierFormRepository;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -30,24 +31,8 @@ class TeilnehmerForm extends AbstractType {
 	public function buildForm( FormBuilderInterface $builder, array $options ) {
 		$builder
 			->setCompound(true)
-			->add('gender', ChoiceType::class,[
-				'choices'=>[
-					'Herr'=>'Herr',
-					'Frau'=>'Frau'
-				],
-
-			])
 			->add('name', TextType::class)
 			->add('prename', TextType::class)
-			->add('street', TextType::class)
-			->add('plz', TextType::class,[
-				'error_bubbling'=>true,
-
-			])
-			->add('city',TextType::class)
-			->add('country',CountryType::class,[
-				'preferred_choices'=>array('DE')
-			])
 			->add('email',EmailType::class)
 			->add('bowclass', EntityType::class,[
 				'class'=>Bowclass::class,
@@ -62,6 +47,13 @@ class TeilnehmerForm extends AbstractType {
 				'expanded'=>false
 			])
 			->add('society', TextType::class)
+			->add('gender', ChoiceType::class,[
+				'choices'=>[
+					'Männlich'=>'Männlich',
+					'Weiblich'=>'Weiblich'
+				],
+
+			])
 			->add('turnier',EntityType::class,[
 				'class'=>TurnierForm::class,
 				'query_builder'=>function(EntityRepository $tf){
@@ -71,6 +63,13 @@ class TeilnehmerForm extends AbstractType {
 					            ->setParameter( 'date', new \DateTime() );
 				},
 				'choice_label'=>'name'
+			])
+			->add('agb_accepted', CheckboxType::class,[
+				'required'=>'true',
+				'data'=>false,
+				'label'=>'acceptPrivacy',
+				'label_attr'=>['class'=>'agb']
+
 			])
 			->add('submit',SubmitType::class);
 	}

@@ -15,8 +15,8 @@ Encore
      .addEntry('js/app', './assets/js/app.js')
      .addStyleEntry('css/main', './assets/css/main.scss')
      .addStyleEntry('css/form', './assets/css/form.scss')
-     .addEntry('img/icons8-ok-48.png','./assets/img/icons8-ok-48.png')
-     .addEntry('img/icons8-stornieren-48.png','./assets/img/icons8-stornieren-48.png')
+     //.addEntry('img/icons8-ok-48.png','./assets/img/icons8-ok-48.png')
+     //.addEntry('img/icons8-stornieren-48.png','./assets/img/icons8-stornieren-48.png')
 
     // uncomment if you use Sass/SCSS files
     .enableSassLoader()

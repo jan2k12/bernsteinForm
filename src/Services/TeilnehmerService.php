@@ -32,16 +32,31 @@ class TeilnehmerService {
 	 */
 	public function calcFreePlaces(TurnierForm $turnier){
 
-			$count                           = $this->em->getRepository( Teilnehmer::class )
-			                                        ->createQueryBuilder( 't' )
-			                                        ->select( 'count(t.id)' )
-			                                        ->where( 't.turnier=:turnier_id' )
-													->andWhere('t.hasPaid=1')
-			                                        ->setParameter( 'turnier_id', $turnier->getId() )
-			                                        ->getQuery()->getSingleScalarResult();
-			$returnCount = ( $turnier->getFreePlaces() - $count ) < 0 ? 0 : ( $turnier->getFreePlaces() - $count );
+			$count                           = $this->getPaidTeilnehmer($turnier);
+			$turnierCount=$turnier->getFreePlaces() - $count;
+			$returnCount = $turnierCount< 0 ? 0 : $turnierCount;
 
 
 		return $returnCount;
+	}
+
+	public function getPaidTeilnehmer(TurnierForm $turnier){
+		$count=$this->em->getRepository( Teilnehmer::class )
+		         ->createQueryBuilder( 't' )
+		         ->select( 'count(t.id)' )
+		         ->where( 't.turnier=:turnier_id' )
+		         ->andWhere('t.hasPaid=1')
+		         ->setParameter( 'turnier_id', $turnier->getId() )
+		         ->getQuery()->getSingleScalarResult();
+		return $count;
+	}
+
+	public function getParticipiens(TurnierForm $turnier ) {
+		return $this->em->getRepository( Teilnehmer::class )
+		         ->createQueryBuilder( 't' )
+		         ->select( 'count(t.id)' )
+		         ->where( 't.turnier=:turnier_id' )
+		         ->setParameter( 'turnier_id', $turnier->getId() )
+		         ->getQuery()->getSingleScalarResult();
 	}
 }

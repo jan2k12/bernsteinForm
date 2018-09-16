@@ -10,6 +10,7 @@
                 <th>{% trans from 'admin' %}startDate{% endtrans %}</th>
                 <th>{% trans from 'admin' %}endDate{% endtrans %}</th>
                 <th>{% trans from 'admin' %}freePlaces{% endtrans %}</th>
+                <th>{% trans from 'admin' %}Participens{% endtrans %}</th>
                 <th>{% trans from 'admin' %}countParticipens{% endtrans %}</th>
                 <th>{% trans from 'admin' %}available{% endtrans %}</th>
                 <th>{% trans from 'admin' %}Actions{% endtrans %}</th>
@@ -21,6 +22,7 @@
                     <td>{{ turnier.endDate.format('d-m-Y') }}</td>
                     <td>{{ turnier.freePlaces }}</td>
                     <td>{{ participiens[turnier.id] }}</td>
+                    <td>{{ paidParticipiens[turnier.id] }}</td>
                     <td>{{ free_places[turnier.id] }}</td>
                     <td>
                         <button id="make_inactive" data-path={{ path('deactivate_turnier') }} value={{ turnier.id }}>deaktivieren</button>

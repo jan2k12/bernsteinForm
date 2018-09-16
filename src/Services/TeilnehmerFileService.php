@@ -24,7 +24,7 @@ class TeilnehmerFileService {
 		$this->em = $em;
 	}
 
-	public function createTotalListCsv( $turnierId ) {
+	public function createTotalListCsv( $turnierId ,$filename) {
 		$teilnehmer = $this->em->getRepository( Teilnehmer::class )->findByTurnierId( $turnierId );
 
 		$headers = [
@@ -38,12 +38,12 @@ class TeilnehmerFileService {
 			'bogenklasse',
 			'bezahlt',
 		];
-		$file    = fopen( 'php://output', 'a+' );
+		$file    = fopen( sys_get_temp_dir().'/'.$filename, 'w' );
 		fputcsv( $file, $headers );
 		foreach ( $teilnehmer as $user ) {
 			/** @var Teilnehmer $user */
 			$contentHash = [
-				$this->convertToMs('T-'.str_pad($user->getId(),4,0,STR_PAD_LEFT)),
+				$this->convertToMs('T-'.str_pad($user->getId(),3,0,STR_PAD_LEFT)),
 				$this->convertToMs($user->getGender()??' '),
 				$this->convertToMs($user->getName()),
 				$this->convertToMs($user->getPrename()),
@@ -55,10 +55,12 @@ class TeilnehmerFileService {
 			];
 			fputcsv($file,$contentHash);
 		}
-		return stream_get_contents($file);
+		fclose($file);
+		return file_get_contents(sys_get_temp_dir().'/'.$filename);
+
 	}
 
-	public function createPaidListCsv( $turnierId ) {
+	public function createPaidListCsv( $turnierId,$filename ) {
 		$teilnehmer = $this->em->getRepository( Teilnehmer::class )->findByPaidTurnierId( $turnierId );
 
 		$headers = [
@@ -72,12 +74,12 @@ class TeilnehmerFileService {
 			'bogenklasse',
 			'bezahlt',
 		];
-		$file    = fopen( 'php://output', 'a+' );
+		$file    = fopen( sys_get_temp_dir().'/'.$filename, 'w' );
 		fputcsv( $file, $headers );
 		foreach ( $teilnehmer as $user ) {
 			/** @var Teilnehmer $user */
 			$contentHash = [
-				$this->convertToMs('T-'.str_pad($user->getId(),4,0,STR_PAD_LEFT)),
+				$this->convertToMs('T-'.str_pad($user->getId(),3,0,STR_PAD_LEFT)),
 				$this->convertToMs($user->getGender()??' '),
 				$this->convertToMs($user->getName()),
 				$this->convertToMs($user->getPrename()),
@@ -89,31 +91,41 @@ class TeilnehmerFileService {
 			];
 			fputcsv($file,$contentHash);
 		}
-		return stream_get_contents($file);
+		fclose($file)  ;
+		return file_get_contents(sys_get_temp_dir().'/'.$filename);
 	}
 
-	public function createArtemisFile($turnierId){
+	public function createArtemisFile($turnierId,$filename){
 		$teilnehmers = $this->em->getRepository( Teilnehmer::class )->findByPaidTurnierId( $turnierId );
 
-		$file=fopen('php://output','a+');
+		$file=fopen(sys_get_temp_dir().'/'.$filename,'w');
 
 		foreach($teilnehmers as $teilnehmer){
 			fwrite($file,$this->buildAnmeldungsstring($teilnehmer));
 		}
-		return stream_get_contents($file);
+		fclose($file);
+		return file_get_contents(sys_get_temp_dir().'/'.$filename);
+
+
 
 	}
 
 	private function buildAnmeldungsstring(Teilnehmer $teilnehmer ) {
-
+		if($teilnehmer->getGender()=="Männlich"|| $teilnehmer->getGender()=="Herr"){
+			$gender='1 M&auml;nnlich';
+		}elseif($teilnehmer->getGender()=="Weiblich" || $teilnehmer->getGender()=="Frau"){
+			$gender='2 Weiblich';
+		}else{
+			$gender='';
+		}
 		$Nachricht = "--- Anmeldung --- --- ---". $teilnehmer->getCreatedAt()->format('d.m.Y H:i:s') ."---\n";
-		$Nachricht.= "Geschlecht:       ".$teilnehmer->getGender()??' '."\n";
+		$Nachricht .= "  Geschlecht:    ".$gender."\n";
 		$Nachricht .= "  Nachname:      ".$teilnehmer->getName()."\n";
 		$Nachricht .= "  Vorname:       ".$teilnehmer->getPrename()."\n";
 		$Nachricht .= "  E-Mail:        ".$teilnehmer->getEmail()."\n";
 		$Nachricht .= "  Verein:        ".$teilnehmer->getSociety()."\n";
-		$Nachricht .= "  Bogen:         ".$teilnehmer->getBowclass()->getName()."\n";
-		$Nachricht .= "  Altersgruppe   ".$teilnehmer->getAgegroupe()->getName()."\n";
+		$Nachricht .= "  Bogen:         ".htmlentities($teilnehmer->getBowclass()->getName()."\n");
+		$Nachricht .= "  Altersgruppe   ".htmlentities($teilnehmer->getAgegroupe()->getName()."\n");
 		return $Nachricht;
 	}
 

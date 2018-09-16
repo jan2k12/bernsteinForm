@@ -14,13 +14,10 @@
     <div>
         <table border="1" cellpadding="5">
             <tr>
+                <th>{% trans from 'admin' %}Nr.{% endtrans %}</th>
                 <th>{% trans from 'admin' %}gender{% endtrans %}</th>
-                <th>{% trans from 'admin' %}prename{% endtrans %}</th>
                 <th>{% trans from 'admin' %}name{% endtrans %}</th>
-                <th>{% trans from 'admin' %}street{% endtrans %}</th>
-                <th>{% trans from 'admin' %}plz{% endtrans %}</th>
-                <th>{% trans from 'admin' %}city{% endtrans %}</th>
-                <th>{% trans from 'admin' %}country{% endtrans %}</th>
+                <th>{% trans from 'admin' %}prename{% endtrans %}</th>
                 <th>{% trans from 'admin' %}email{% endtrans %}</th>
                 <th>{% trans from 'admin' %}society{% endtrans %}</th>
                 <th>{% trans from 'admin' %}hasPaid{% endtrans %}</th>
@@ -30,13 +27,10 @@
             </tr>
             {% for teilnehmer in teilnehmers %}
                 <tr>
+                    <td>{{ teilnehmer.kennung }}</td>
                     <td>{{ teilnehmer.gender }}</td>
-                    <td>{{ teilnehmer.prename }}</td>
                     <td>{{ teilnehmer.name }}</td>
-                    <td>{{ teilnehmer.street }}</td>
-                    <td>{{ teilnehmer.plz }}</td>
-                    <td>{{ teilnehmer.city }}</td>
-                    <td>{{ teilnehmer.country }}</td>
+                    <td>{{ teilnehmer.prename }}</td>
                     <td>{{ teilnehmer.email }}</td>
                     <td>{{ teilnehmer.society }}</td>
                     <td>
@@ -72,4 +66,3 @@
 {% block javascripts %}
     <script type="application/javascript" src="{{ asset('build/js/app.js') }}"></script>
 {% endblock %}
-

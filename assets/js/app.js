@@ -1,7 +1,7 @@
 var $ = require('jquery');
 
 $(document).ready(function () {
-    $('#make_inactive').click(function () {
+     $('#make_inactive').click(function () {
         $.ajax({
             method: 'POST',
             url: $(this).data('path'),
@@ -31,4 +31,5 @@ $(document).ready(function () {
         })
     });
 
+     $('.agb').html('ich akzeptiere die <a href="https://bernsteineagles.de/datenschutz/" target="_new">Datenschutz Richtlinien</a>');
 });

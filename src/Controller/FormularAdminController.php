@@ -29,9 +29,10 @@ class FormularAdminController extends Controller {
 
 		return $this->render( 'admin/index.html.twig',
 			[
-				'turniere'     => $turniere,
-				'free_places'  => $this->countFreePlaces( $turniere, $teilnehmer_service ),
-				'participiens' => $this->getParticipiensForTurnierHash( $turniere ),
+				'turniere'         => $turniere,
+				'free_places'      => $this->countFreePlaces( $turniere, $teilnehmer_service ),
+				'paidParticipiens' => $this->getParticipiensForTurnierHash( $turniere, $teilnehmer_service ),
+				'participiens'     => $this->getParticipiens( $turniere,$teilnehmer_service ),
 			] );
 	}
 
@@ -51,7 +52,12 @@ class FormularAdminController extends Controller {
 	 * @Route("/showturnier/{turnierId}", name="admin_show_turnier")
 	 * @param Request $request
 	 */
-	public function showTurnier( Request $request, $turnierId, AuthorizationCheckerInterface $authChecker, TeilnehmerService $teilnehmer_service ) {
+	public function showTurnier(
+		Request $request,
+		$turnierId,
+		AuthorizationCheckerInterface $authChecker,
+		TeilnehmerService $teilnehmer_service
+	) {
 
 		if ( false === $authChecker->isGranted( 'ROLE_ADMIN' ) ) {
 			throw new AccessDeniedException( 'Unable to access this page!' );
@@ -61,15 +67,17 @@ class FormularAdminController extends Controller {
 
 		$turnier = $this->getDoctrine()->getRepository( TurnierForm::class )->find( $turnierId );
 
-		$countFreePlaces=$teilnehmer_service->calcFreePlaces($turnier);
+		$countFreePlaces = $teilnehmer_service->calcFreePlaces( $turnier );
 
-		$paidPlaces=$turnier->getFreePlaces() - $countFreePlaces;
-		return $this->render( 'admin/teilnehmer.html.twig', [
-			'teilnehmers' => $teilnehmer,
-			'turnier' => $turnier,
-			'paidPlaces' => $paidPlaces,
-			'freePlaces'=>$countFreePlaces
-		] );
+		$paidPlaces = $turnier->getFreePlaces() - $countFreePlaces;
+
+		return $this->render( 'admin/teilnehmer.html.twig',
+			[
+				'teilnehmers' => $teilnehmer,
+				'turnier'     => $turnier,
+				'paidPlaces'  => $paidPlaces,
+				'freePlaces'  => $countFreePlaces,
+			] );
 	}
 
 	/**
@@ -78,10 +86,15 @@ class FormularAdminController extends Controller {
 	 */
 	public function getTotalList( $turnierId, TeilnehmerFileService $service ) {
 		$fileName    = "AlleTeilnehmer.csv";
-		$file        = $service->createTotalListCsv( $turnierId );
+		$file        = $service->createTotalListCsv( $turnierId,$fileName );
 		$response    = new Response( $file );
 		$disposition = $response->headers->makeDisposition( ResponseHeaderBag::DISPOSITION_ATTACHMENT, $fileName );
 		$response->headers->set( 'Content-Disposition', $disposition );
+		$response->headers->set( 'Content-Type','text/csv' );
+		$response->headers->set( 'Pragma','public' );
+		$response->headers->set( 'Expires','0' );
+		$response->headers->set( 'Cache-Control','must-revalidate, post-check=0, pre-check=0' );
+		$response->headers->set( 'Content-Description','File Transfer' );
 
 		return $response;
 	}
@@ -92,10 +105,15 @@ class FormularAdminController extends Controller {
 	 */
 	public function getPaidlist( $turnierId, TeilnehmerFileService $service ) {
 		$fileName    = "AlleBezahltenTeilnehmer.csv";
-		$file        = $service->createPaidListCsv( $turnierId );
+		$file        = $service->createPaidListCsv( $turnierId,$fileName );
 		$response    = new Response( $file );
 		$disposition = $response->headers->makeDisposition( ResponseHeaderBag::DISPOSITION_ATTACHMENT, $fileName );
 		$response->headers->set( 'Content-Disposition', $disposition );
+		$response->headers->set( 'Content-Type','text/csv' );
+		$response->headers->set( 'Pragma','public' );
+		$response->headers->set( 'Expires','0' );
+		$response->headers->set( 'Cache-Control','must-revalidate, post-check=0, pre-check=0' );
+		$response->headers->set( 'Content-Description','File Transfer' );
 
 		return $response;
 	}
@@ -112,9 +130,6 @@ class FormularAdminController extends Controller {
 		                   ->getRepository( Teilnehmer::class )
 		                   ->findOneBy( [ 'id' => $teilnehmerId ] );
 		$teilnehmer->setHasPaid( ! $teilnehmer->isHasPaid() );
-		if ( $teilnehmer->isHasPaid() ) {
-			$mailer->sendTeilnehmerPaidMail( $teilnehmer );
-		}
 		$this->getDoctrine()->getManager()->persist( $teilnehmer );
 		$this->getDoctrine()->getManager()->flush();
 
@@ -128,11 +143,15 @@ class FormularAdminController extends Controller {
 	public function getPaidArtemisFile( $turnierId, TeilnehmerFileService $service ) {
 
 		$fileName    = "Anmeldung.txt";
-		$file        = $service->createArtemisFile( $turnierId );
+		$file        = $service->createArtemisFile( $turnierId ,$fileName);
 		$response    = new Response( $file );
 		$disposition = $response->headers->makeDisposition( ResponseHeaderBag::DISPOSITION_ATTACHMENT, $fileName );
 		$response->headers->set( 'Content-Disposition', $disposition );
-
+		$response->headers->set( 'Content-Type','text/csv' );
+		$response->headers->set( 'Pragma','public' );
+		$response->headers->set( 'Expires','0' );
+		$response->headers->set( 'Cache-Control','must-revalidate, post-check=0, pre-check=0' );
+		$response->headers->set( 'Content-Description','File Transfer' );
 		return $response;
 
 	}
@@ -146,21 +165,18 @@ class FormularAdminController extends Controller {
 		return $returnHash;
 	}
 
-	private function getParticipiens( $turnier ) {
-		$count = $this->getDoctrine()->getRepository( Teilnehmer::class )
-		              ->createQueryBuilder( 't' )
-		              ->select( 'count(t.id)' )
-		              ->where( 't.turnier=:turnier_id' )
-		              ->setParameter( 'turnier_id', $turnier->getId() )
-		              ->getQuery()->getSingleScalarResult();
-
-		return $count;
-	}
-
-	private function getParticipiensForTurnierHash( $turniere ) {
+	private function getParticipiens( $turniere, TeilnehmerService $teilnehmer_service ) {
 		$returnHash = array();
 		foreach ( $turniere as $turnier ) {
-			$returnHash[ $turnier->getId() ] = $this->getParticipiens( $turnier );
+			$returnHash[$turnier->getId()] = $teilnehmer_service->getParticipiens($turnier);
+			return $returnHash;
+		}
+	}
+
+	private function getParticipiensForTurnierHash( $turniere, TeilnehmerService $teilnehmer_service ) {
+		$returnHash = array();
+		foreach ( $turniere as $turnier ) {
+			$returnHash[ $turnier->getId() ] = $teilnehmer_service->getPaidTeilnehmer( $turnier );
 		}
 
 		return $returnHash;

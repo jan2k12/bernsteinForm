@@ -1,30 +1,64 @@
-<h1>Sie haben Sich zum Turnier: {{ turnier.name }} erfolgreich Angemeldet</h1>
+<html>
+<head>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            font-size:1.2em;
+        }
+    </style>
+</head>
+<h2>Du hast Dich zum {{ turnier.name }} erfolgreich angemeldet</h2>
+
 <table>
     <tr>
-        <td>Sehr geehrte(r) {{ teilnehmer.prename }} {{ teilnehmer.name }} </td>
-    <tr>
+        <p>
+            Deine Turnieranmeldung ist bei uns eingegangen.
+        </p>
+    </tr>
     <tr>
         <td>
-
-            Deine Turnieranmeldung ist bei uns eingegangen. Wir nehmen Dich, nach Zahlungseingang, in die Starterliste auf!<br/>
-            Altersklasse: {{ teilnehmer.agegroupe.name  }}<br/>
-            Bogenklasse: {{ teilnehmer.bowclass.name }}<br/>
-            Verein: {{ teilnehmer.society }}<br/>
-
+            <p>
+                Geschlecht: {{ teilnehmer.gender }}<br/>
+                Name: {{ teilnehmer.name }}<br/>
+                Vorname: {{ teilnehmer.prename }}<br/>
+                Email: {{ teilnehmer.email }}<br/>
+                Altersklasse: {{ teilnehmer.agegroupe.name }}<br/>
+                Bogenklasse: {{ teilnehmer.bowclass.name }}<br/>
+                Verein: {{ teilnehmer.society }}<br/>
+            </p>
         </td>
+    </tr>
     <tr>
         <td>
-            Startgeld:
-<br/>
-            Erwachsene: 14 Euro <br/>
-            Jugendliche ab Jahrgang 1999 bis einschlie&szlig;lich 2003 : 7 Euro <br/>
-            Kinder: Frei <br/>
-<br/>
-            Wir bitten um &uuml;berweisung auf folgendes Konto:<br/>
-<br/>
+            <p>
+                <br/>
+                Startgeld:<br/>
+                Schüler bis einschl. 13 Jahren: <strong>frei</strong> <br/>
+                Jugendliche von 14 bis einschl. 17 Jahren: <strong>7€</strong> <br/>
+                Erwachsene: <strong>14€</strong><br/>
+                <br/>
+            </p>
+            <p>
+                Bitte überweise das Startgeld innerhalb einer Woche auf folgendes Konto:<br/>
+            </p>
+            <p>
             Bernstein-Eagles e.V. Michelbach <br/>
             IBAN: DE55 6629 0000 0022 3 146 02 <br/>
-            BIC: VBRADE6K<br/>
+            Verwendungszweck:{{ teilnehmer.kennung }}<br/>
+            </p>
+            <p>
+                Bitte unbedingt den o.g. Verwendungszweck angeben. Bei Sammelüberweisung bitte jeden einzelnen
+                Verwendungszweck der Teilnehmer angeben.
+            </p>
+            <p>
+                Nach Zahlungseingang wird Dir ein Startplatz zugewiesen.
+            </p>
+            <p>
+                Die Starterliste ist online auf unserer Webseite unter
+                <a href="http://www.bernsteineagles.de/wildsau-turnier/wildsau-turnier-info">www.bernsteineagles.de/wildsau-turnier/wildsau-turnier-info/</a>
+                einzusehen und wird regelmäßig aktualisiert.
+            </p>
         </td>
     </tr>
 </table>
+</html>

@@ -10,6 +10,7 @@ namespace App\Services;
 
 
 use App\Entity\Teilnehmer;
+use Monolog\Logger;
 
 
 class MailerService {
@@ -19,26 +20,20 @@ class MailerService {
 		$this->mailer=$mailer;
 	}
 
-	public function sendTeilnehmerPaidMail(Teilnehmer $teilnehmer ) {
-		$message=new \Swift_Message('Turnier aktivierung');
-
-		$message->setFrom('noreply@bernsteineagles-michelbach.de');
-		$message->setTo($teilnehmer->getEmail());
-
-		$message=$message->setBody($this->twig->render('mails/haspaid.html.twig',['teilnehmer'=>$teilnehmer]),'text/html');
-		$this->mailer->send($message);
-	}
-
 	public function sendTeilnehmerRegisterMails(Teilnehmer $teilnehmer ) {
-
+		try{
 		$turnier=$teilnehmer->getTurnier();
 		$message=new \Swift_Message('Neue Anmeldung für '.$turnier->getName());
-		$message->setFrom('noreply@bernsteineagles-michelbach.de');
+		$message->setFrom(getenv('FROM_EMAIL_ADDRESS'));
 		$message->setTo($teilnehmer->getEmail());
-		$message->setCharset('ISO-8859-1');
+		$message->setBcc('info@bernsteineagles.de');
+		$message->setCharset('UTF-8');
 		$message->setBody($this->twig->render(
-			'mails/newRegisterToParticipant.html.twig',['teilnehmer'=>$teilnehmer,'turnier'=>$turnier],'text/html'
-		));
+			'mails/newRegisterToParticipant.html.twig',['teilnehmer'=>$teilnehmer,'turnier'=>$turnier]
+		),'text/html','UTF-8');
 		$this->mailer->send($message);
+		}catch(\Exception $ex){
+			error_log($ex->getMessage());
+		}
 	}
 }

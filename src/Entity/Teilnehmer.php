@@ -34,31 +34,6 @@ class Teilnehmer
 	 * @ORM\Column(type="string")
 	 * @var string
 	 */
-    private $street;
-
-	/**
-	 * @ORM\Column(type="string",length=5)
-	 * @Assert\Length(min=5,max=5,minMessage="Plz. muss fünfstellig sein",minMessage="Plz. muss fünfstellig sein",exactMessage="mustBe5")
-	 * @var string
-	 */
-    private $plz;
-
-	/**
-	 * @ORM\Column(type="string")
-	 * @var string
-	 */
-    private $city;
-
-	/**
-	 * @ORM\Column(type="string",length=2)
-	 * @var string
-	 */
-    private $country;
-
-	/**
-	 * @ORM\Column(type="string")
-	 * @var string
-	 */
     private $email;
 
 	/**
@@ -97,8 +72,13 @@ class Teilnehmer
 	 * @ORM\Column(type="string" )
 	 * @var string
 	 */
-    private $gender="Herr";
+    private $gender="Männlich";
 
+	/**
+	 * @ORM\Column(type="boolean")
+	 * @var boolean
+	 */
+    private $agb_accepted="false";
 
 	/**
 	 * @ORM\Column(type="datetime" )
@@ -172,62 +152,6 @@ class Teilnehmer
 	 */
 	public function setPrename( string $prename ): void {
 		$this->prename = $prename;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getStreet(): ?string {
-		return $this->street;
-	}
-
-	/**
-	 * @param string $street
-	 */
-	public function setStreet( string $street ): void {
-		$this->street = $street;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getPlz(): ?string {
-		return $this->plz;
-	}
-
-	/**
-	 * @param string $plz
-	 */
-	public function setPlz( string $plz ): void {
-		$this->plz = $plz;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getCity(): ?string {
-		return $this->city;
-	}
-
-	/**
-	 * @param string $city
-	 */
-	public function setCity( string $city ): void {
-		$this->city = $city;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getCountry(): ?string {
-		return $this->country;
-	}
-
-	/**
-	 * @param string $country
-	 */
-	public function setCountry( string $country ): void {
-		$this->country = $country;
 	}
 
 	/**
@@ -329,5 +253,21 @@ class Teilnehmer
 	}
 
 
+	public function getKennung(){
+		return "T-".str_pad($this->id,3,0,STR_PAD_LEFT);
+	}
 
+	/**
+	 * @return bool
+	 */
+	public function isAgbAccepted(): bool {
+		return $this->agb_accepted;
+	}
+
+	/**
+	 * @param bool $agb_accepted
+	 */
+	public function setAgbAccepted( bool $agb_accepted ): void {
+		$this->agb_accepted = $agb_accepted;
+	}
 }
