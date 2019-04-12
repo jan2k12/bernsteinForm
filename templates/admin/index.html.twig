@@ -25,9 +25,9 @@
                     <td>{{ paidParticipiens[turnier.id] }}</td>
                     <td>{{ free_places[turnier.id] }}</td>
                     <td>
-                        <button id="make_inactive" data-path={{ path('deactivate_turnier') }} value={{ turnier.id }}>deaktivieren</button>
+                        <button class="make_inactive" data-path={{ path('deactivate_turnier') }} value={{ turnier.id }}>deaktivieren</button>
                         <br/>
-                        <button id="open_turnier" data-path="{{ path('admin_show_turnier',{'turnierId':turnier.id}) }}" value={{ turnier.id }}>Turnier öffnen</button>
+                        <button class="open_turnier" data-path="{{ path('admin_show_turnier',{'turnierId':turnier.id}) }}" value={{ turnier.id }}>Turnier öffnen</button>
                     </td>
                 </tr>
             {% endfor %}

@@ -169,8 +169,9 @@ class FormularAdminController extends Controller {
 		$returnHash = array();
 		foreach ( $turniere as $turnier ) {
 			$returnHash[$turnier->getId()] = $teilnehmer_service->getParticipiens($turnier);
-			return $returnHash;
+
 		}
+		return $returnHash;
 	}
 
 	private function getParticipiensForTurnierHash( $turniere, TeilnehmerService $teilnehmer_service ) {
