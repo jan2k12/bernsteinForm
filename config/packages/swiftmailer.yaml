@@ -2,7 +2,7 @@ swiftmailer:
     transport: smtp
     host: bernsteineagles-de.netcup-mail.de
     username: info@bernsteineagles.de
-    password: RecurvE$2017-
+    password: RecurvE$2019!
     port: 587
     encryption: tls
     auth_mode: plain

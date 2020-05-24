@@ -1,25 +1,35 @@
-label{
-    display: inline-block;
-    width:250px;
-    font-weight:bolder;
+label {
+  display: inline-block;
+  width: 250px;
+  font-weight: bolder;
 
 }
 
-.teilnehmer_form div{
-    height:40px;
+.teilnehmer_form div {
+  height: 40px;
 }
 
-@media screen and (max-width:400px) {
-    .teilnehmer_form div {
-        height: 60px;
-    }
+.teilnehmer_form #teilnehmer_form_birthDate {
+  display: inline-block;
 }
 
-input{
-    fonz-size:0.8em;
-    height:20px;
+#teilnehmer_form ul{
+  border-color: #AA3333;
+  border-style: solid;
+  background: #dc3545;
+  font-weight: bolder;
+}
+@media screen and (max-width: 400px) {
+  .teilnehmer_form div {
+    height: 60px;
+  }
 }
 
-button{
-    margin-top:20px;
+input {
+  fonz-size: 0.8em;
+  height: 20px;
+}
+
+button {
+  margin-top: 20px;
 }

@@ -7,16 +7,16 @@ use App\Entity\TurnierForm;
 use App\Services\MailerService;
 use App\Services\TeilnehmerFileService;
 use App\Services\TeilnehmerService;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class FormularAdminController extends Controller {
+class FormularAdminController extends AbstractController {
 	/**
 	 * @Route("/admin", name="formular_admin")
 	 */

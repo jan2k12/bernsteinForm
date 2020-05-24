@@ -8,6 +8,7 @@
         <div>
             {% trans %}counter {% endtrans %} <strong>{{ counter }}</strong>
         </div>
+        {{ form_errors(form.birthDate) }}
         {{ form_start(form) }}
         {{ form_widget(form) }}
         {{ form_end(form) }}

@@ -17,5 +17,6 @@ return [
 	'Successfull registert'=>'Erfolgreich Registriert',
 	'Gender'=>'Geschlecht',
 	'gender'=>'Geschlecht',
-	'acceptPrivacy'=>"Datenschutz akzeptieren"
+	'acceptPrivacy'=>"Datenschutz akzeptieren",
+    "Birth date" => "Geburtsdatum"
 ];

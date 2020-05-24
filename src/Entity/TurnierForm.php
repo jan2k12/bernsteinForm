@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TurnierFormRepository")
+ *
  */
 class TurnierForm
 {
@@ -54,6 +55,12 @@ class TurnierForm
 	 * @var integer
 	 */
 	private $freePlaces;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default":"1"})
+     * @var boolean
+     */
+    private $bankPayment=true;
 
 	/**
 	 * @ORM\OneToMany(targetEntity="App\Entity\Teilnehmer",mappedBy="turnier")
@@ -132,6 +139,22 @@ class TurnierForm
 	public function setName( string $name ): void {
 		$this->name = $name;
 	}
+
+    /**
+     * @return bool
+     */
+    public function isBankPayment(): bool
+    {
+        return $this->bankPayment;
+    }
+
+    /**
+     * @param bool $bankPayment
+     */
+    public function setBankPayment(bool $bankPayment): void
+    {
+        $this->bankPayment = $bankPayment;
+    }
 
 
 }

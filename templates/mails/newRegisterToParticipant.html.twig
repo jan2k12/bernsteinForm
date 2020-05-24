@@ -21,6 +21,7 @@
                 Geschlecht: {{ teilnehmer.gender }}<br/>
                 Name: {{ teilnehmer.name }}<br/>
                 Vorname: {{ teilnehmer.prename }}<br/>
+                Geburtstag: {{ teilnehmer.birthDate.format('d.m.Y') }}<br/>
                 Email: {{ teilnehmer.email }}<br/>
                 Altersklasse: {{ teilnehmer.agegroupe.name }}<br/>
                 Bogenklasse: {{ teilnehmer.bowclass.name }}<br/>
@@ -28,6 +29,7 @@
             </p>
         </td>
     </tr>
+    {% if turnier.bankPayment == 1 %}
     <tr>
         <td>
             <p>
@@ -60,5 +62,13 @@
             </p>
         </td>
     </tr>
+    {% else %}
+        <tr>
+            <td>
+                <p><strong>Bezahlung des Startgeldes erst am Turniertag!</strong></p>
+                <p>Bitte bezahl direkt am Turniertag vor Ort.</p>
+            </td>
+        </tr>
+    {% endif %}
 </table>
 </html>

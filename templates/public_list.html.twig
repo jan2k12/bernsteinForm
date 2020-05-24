@@ -21,11 +21,15 @@
                 <td>{{ teilnehmer.society }}</td>
                 <td>{{ teilnehmer.bowclass.name }}</td>
                 <td>
-                    {% if teilnehmer.hasPaid==1 %}
-                        <img src="{{ asset('img/icons8-ok-48.png') }}" alt="ok"/>
+                    {% if turnier.bankPayment == 1 %}
+                        {% if teilnehmer.hasPaid==1 %}
+                            <img src="{{ asset('img/icons8-ok-48.png') }}" alt="ok"/>
 
+                        {% else %}
+                            <img src="{{ asset('img/icons8-stornieren-48.png') }}" alt="notOk"/>
+                        {% endif %}
                     {% else %}
-                        <img src="{{ asset('img/icons8-stornieren-48.png') }}" alt="notOk"/>
+                        bitte vor Ort bezahlen!
                     {% endif %}
                 </td>
             </tr>
