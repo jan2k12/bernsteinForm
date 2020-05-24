@@ -22,7 +22,7 @@ final class Version20200523155126 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE teilnehmer ADD birth_date DATE DEFAULT NULL');
+        $this->addSql('ALTER TABLE teilnehmer ADD birth_date DATE DEFAULT NULL AFTER prename');
         $this->addSql('ALTER TABLE agegroup ADD max_age INT NOT NULL');
         $this->addSql('ALTER TABLE turnier_form CHANGE pay_by_bank bank_payment TINYINT(1) DEFAULT \'1\' NOT NULL');
     }

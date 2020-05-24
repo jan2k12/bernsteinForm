@@ -2,58 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69f6eb49-18f3-4ff0-ad9d-735bfe9d7261" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/css/app.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/assets.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/prod/webpack_encore.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/test/webpack_encore.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/webpack_encore.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200523155126.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200523182202.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Validator/Constraints/TurnierForm.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Validator/Constraints/TurnierFormValidator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/bernsteinEagleForms.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/bernsteinEagleForms.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/css/form.scss" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/form.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/doctrine.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/doctrine.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/framework.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/framework.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/swiftmailer.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/swiftmailer.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/routes/dev/twig.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes/dev/twig.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/FormularAdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/FormularAdminController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/FormularController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/FormularController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Agegroup.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Agegroup.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Teilnehmer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Teilnehmer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/TurnierForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/TurnierForm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/TeilnehmerForm.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/TeilnehmerForm.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20180218163937.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Version20180218163937.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20180219221733.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Version20180219221733.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20180224172033.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Version20180224172033.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20180303085928.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Version20180303085928.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20180310145224.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Version20180310145224.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20180331124846.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Version20180331124846.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20180412062444.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Version20180412062444.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20180519113117.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Version20180519113117.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/AgegroupRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/AgegroupRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/BowclassRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/BowclassRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/TeilnehmerRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/TeilnehmerRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/TurnierFormRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/TurnierFormRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/UsersRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UsersRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/MailerService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/MailerService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/TeilnehmerFileService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/TeilnehmerFileService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Services/TeilnehmerService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/TeilnehmerService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/formIndex.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/formIndex.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/mails/newRegisterToParticipant.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/mails/newRegisterToParticipant.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/public_list.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public_list.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/translations/messages.de.php" beforeDir="false" afterPath="$PROJECT_DIR$/translations/messages.de.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/translations/validators.de.php" beforeDir="false" afterPath="$PROJECT_DIR$/translations/validators.de.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200523155126.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Version20200523155126.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +38,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PhpDebugGeneral" listening_started="true" notify_if_session_was_finished_without_being_paused="false" />
+  <component name="PhpDebugGeneral" notify_if_session_was_finished_without_being_paused="false" />
   <component name="PhpServers">
     <servers>
       <server host="beform.dev" id="1cee468d-f5a3-4b32-a810-ff8b391337d5" name="beform" />
@@ -353,7 +302,7 @@
       <workItem from="1585076479171" duration="31000" />
       <workItem from="1590242396450" duration="14216000" />
       <workItem from="1590259309557" duration="500000" />
-      <workItem from="1590343615300" duration="5102000" />
+      <workItem from="1590343615300" duration="5657000" />
     </task>
     <servers />
   </component>
