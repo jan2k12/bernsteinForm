@@ -37,13 +37,6 @@ class TeilnehmerForm extends AbstractType
             ->setCompound(true)
             ->add('name', TextType::class)
             ->add('prename', TextType::class)
-            ->add('birthDate', DateType::class, [
-                "widget" => "choice",
-                "input" => "datetime",
-                "format" => "dd.MM.yyyy",
-                'years' => range(1920, 2020)
-
-            ])
             ->add('email', EmailType::class)
             ->add('bowclass', EntityType::class, [
                 'class' => Bowclass::class,

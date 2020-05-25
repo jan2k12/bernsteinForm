@@ -9,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TeilnehmerRepository")
- *@\App\Validator\Constraints\TurnierForm()
  */
 class Teilnehmer
 {
@@ -76,12 +75,6 @@ class Teilnehmer
      * @var string
      */
     private $gender = "Männlich";
-
-    /**
-     * @ORM\Column(type="datetime",nullable=true)
-     * @var \DateTime
-     */
-    private $birthDate;
 
     /**
      * @ORM\Column(type="boolean")
@@ -304,24 +297,6 @@ class Teilnehmer
     {
         $this->agb_accepted = $agb_accepted;
     }
-
-    /**
-     * @return \DateTime
-     */
-    public function getBirthDate(): ?\DateTime
-    {
-        return $this->birthDate;
-    }
-
-    /**
-     * @param \DateTime $birthDate
-     */
-    public function setBirthDate(\DateTime $birthDate): void
-    {
-        $this->birthDate = $birthDate;
-    }
-
-
 
 
 }

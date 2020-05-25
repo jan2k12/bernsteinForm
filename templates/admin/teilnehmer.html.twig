@@ -20,10 +20,14 @@
                 <th>{% trans from 'admin' %}prename{% endtrans %}</th>
                 <th>{% trans from 'admin' %}email{% endtrans %}</th>
                 <th>{% trans from 'admin' %}society{% endtrans %}</th>
-                <th>{% trans from 'admin' %}hasPaid{% endtrans %}</th>
+                {% if turnier.bankPayment == 1 %}
+                    <th>{% trans from 'admin' %}hasPaid{% endtrans %}</th>
+                {% endif %}
                 <th>{% trans from 'admin' %}ageGroup{% endtrans %}</th>
                 <th>{% trans from 'admin' %}bowClass{% endtrans %}</th>
+                {% if turnier.bankPayment == 1 %}
                 <th>{% trans from 'admin' %}actions{% endtrans %}</th>
+                {% endif %}
             </tr>
             {% for teilnehmer in teilnehmers %}
                 <tr>
@@ -33,20 +37,24 @@
                     <td>{{ teilnehmer.prename }}</td>
                     <td>{{ teilnehmer.email }}</td>
                     <td>{{ teilnehmer.society }}</td>
-                    <td>
-                        {% if teilnehmer.hasPaid==1 %}
-                            <img src="{{ asset('img/icons8-ok-48.png') }}" alt="ok"/>
+                    {% if turnier.bankPayment == 1 %}
+                        <td>
+                            {% if teilnehmer.hasPaid==1 %}
+                                <img src="{{ asset('img/icons8-ok-48.png') }}" alt="ok"/>
 
-                        {% else %}
-                            <img src="{{ asset('img/icons8-stornieren-48.png') }}" alt="notOk"/>
-                        {% endif %}
-                    </td>
+                            {% else %}
+                                <img src="{{ asset('img/icons8-stornieren-48.png') }}" alt="notOk"/>
+                            {% endif %}
+                        </td>
+                    {% endif %}
                     <td>{{ teilnehmer.Agegroupe.name }}</td>
                     <td>{{ teilnehmer.Bowclass.name }}</td>
+                    {% if turnier.bankPayment == 1 %}
                     <td>
                         <button class="pathButtonAndRefresh"
                                 data-path="{{ path('setPaid',{'teilnehmerId': teilnehmer.id}) }}">{% if teilnehmer.hasPaid == false %} {% trans from 'admin' %} setToPaid {% endtrans %} {% else %} {% trans from 'admin' %} setToNotPaid {% endtrans %} {% endif %}</button>
                     </td>
+                    {% endif %}
                 </tr>
             {% endfor %}
         </table>

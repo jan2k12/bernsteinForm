@@ -30,7 +30,7 @@ class TeilnehmerFileService
     public function createTotalListCsv($turnierId, $filename)
     {
         $teilnehmer = $this->em->getRepository(Teilnehmer::class)->findByTurnierId($turnierId);
-
+        $turnier = $this->em->getRepository(TurnierForm::class)->find($turnierId);
         $headers = [
             'teilnehmerkennung',
             'geschlecht',
@@ -40,8 +40,10 @@ class TeilnehmerFileService
             'verein',
             'altersgruppe',
             'bogenklasse',
-            'bezahlt',
         ];
+        if ($turnier->isBankPayment()) {
+            $headers[] = 'bezahlt';
+        }
         $file = fopen(sys_get_temp_dir() . '/' . $filename, 'w');
         fputcsv($file, $headers);
         foreach ($teilnehmer as $user) {
@@ -54,9 +56,11 @@ class TeilnehmerFileService
                 $this->convertToMs($user->getEmail()),
                 $this->convertToMs($user->getSociety()),
                 $user->getAgegroupe()->getName(),
-                $user->getBowclass()->getName(),
-                $user->isHasPaid() ? 'ja' : 'nein'
+                $user->getBowclass()->getName()
             ];
+            if ($turnier->isBankPayment()) {
+                $contentHash[] = $user->isHasPaid() ? 'ja' : 'nein';
+            }
             fputcsv($file, $contentHash);
         }
         fclose($file);
@@ -67,7 +71,7 @@ class TeilnehmerFileService
     public function createPaidListCsv($turnierId, $filename)
     {
         $teilnehmer = $this->em->getRepository(Teilnehmer::class)->findByPaidTurnierId($turnierId);
-
+        $turnier = $this->em->getRepository(TurnierForm::class)->find($turnierId);
         $headers = [
             'teilnehmerkennung',
             'geschlecht',
@@ -77,8 +81,10 @@ class TeilnehmerFileService
             'verein',
             'altersgruppe',
             'bogenklasse',
-            'bezahlt',
         ];
+        if ($turnier->isBankPayment()) {
+            $headers[]= 'bezahlt';
+        }
         $file = fopen(sys_get_temp_dir() . '/' . $filename, 'w');
         fputcsv($file, $headers);
         foreach ($teilnehmer as $user) {
@@ -91,9 +97,11 @@ class TeilnehmerFileService
                 $this->convertToMs($user->getEmail()),
                 $this->convertToMs($user->getSociety()),
                 $user->getAgegroupe()->getName(),
-                $user->getBowclass()->getName(),
-                $user->isHasPaid() ? 'ja' : 'nein'
+                $user->getBowclass()->getName()
             ];
+            if ($turnier->isBankPayment()) {
+                $contentHash[] = $user->isHasPaid() ? 'ja' : 'nein';
+            }
             fputcsv($file, $contentHash);
         }
         fclose($file);
@@ -140,9 +148,11 @@ class TeilnehmerFileService
         return $Nachricht;
     }
 
-    private function convertToMs($string)
+    private function convertToMs(string $string)
     {
         $charset = mb_detect_encoding($string, "UTF-8, ISO-8859-1, ISO-8859-15", true);
         return mb_convert_encoding($string, 'Windows-1252', $charset);
     }
+
+
 }

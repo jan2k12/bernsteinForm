@@ -12,7 +12,9 @@
             <th>{% trans from 'admin' %}name{% endtrans %}</th>
             <th>{% trans from 'admin' %}society{% endtrans %}</th>
             <th>{% trans from 'admin' %}bowClass{% endtrans %}</th>
-            <th>{% trans from 'admin' %}hasPaid{% endtrans %}</th>
+            {% if turnier.bankPayment == 1 %}
+                <th>{% trans from 'admin' %}hasPaid{% endtrans %}</th>
+            {% endif %}
         </tr>
         {% for teilnehmer in teilnehmers %}
             <tr>
@@ -20,18 +22,16 @@
                 <td>{{ teilnehmer.name }}</td>
                 <td>{{ teilnehmer.society }}</td>
                 <td>{{ teilnehmer.bowclass.name }}</td>
-                <td>
-                    {% if turnier.bankPayment == 1 %}
+                {% if turnier.bankPayment == 1 %}
+                    <td>
                         {% if teilnehmer.hasPaid==1 %}
                             <img src="{{ asset('img/icons8-ok-48.png') }}" alt="ok"/>
 
                         {% else %}
                             <img src="{{ asset('img/icons8-stornieren-48.png') }}" alt="notOk"/>
                         {% endif %}
-                    {% else %}
-                        bitte vor Ort bezahlen!
-                    {% endif %}
-                </td>
+                    </td>
+                {% endif %}
             </tr>
         {% endfor %}
     </table>
