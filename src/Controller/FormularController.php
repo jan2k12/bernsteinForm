@@ -24,7 +24,11 @@ class FormularController extends AbstractController
         $form = $this->createForm(TeilnehmerForm::class, $teilnehmer);
 
         $form->handleRequest($request);
-        $turnier = $formular_service->getFormsForDateRange(new \DateTime());
+        $turnier = $formular_service->getActiveFormsForDateRange(new \DateTime());
+        if(!$turnier){
+            return $this->render('formIndex.html.twig',
+                ['form' =>null]);
+        }
         $counter = $teilnehmer_service->calcFreePlaces($turnier[0]);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();

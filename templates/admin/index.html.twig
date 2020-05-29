@@ -13,6 +13,7 @@
                 <th>{% trans from 'admin' %}Participens{% endtrans %}</th>
                 <th>{% trans from 'admin' %}countParticipens{% endtrans %}</th>
                 <th>{% trans from 'admin' %}available{% endtrans %}</th>
+                <th>{% trans from 'admin' %}isActive{% endtrans %}</th>
                 <th>{% trans from 'admin' %}Actions{% endtrans %}</th>
             </tr>
             {% for turnier in turniere %}
@@ -24,8 +25,9 @@
                     <td>{{ participiens[turnier.id] }}</td>
                     <td>{{ paidParticipiens[turnier.id] }}</td>
                     <td>{{ free_places[turnier.id] }}</td>
+                    <td>{{ turnier.isActive ? '1' : '0' }}</td>
                     <td>
-                        <button class="make_inactive" data-path={{ path('deactivate_turnier') }} value={{ turnier.id }}>deaktivieren</button>
+                        <button class="make_inactive" data-path={{ path('toogle_status_turnier') }} value={{ turnier.id }}>deaktivieren / aktivieren </button>
                         <br/>
                         <button class="open_turnier" data-path="{{ path('admin_show_turnier',{'turnierId':turnier.id}) }}" value={{ turnier.id }}>Turnier öffnen</button>
                     </td>
